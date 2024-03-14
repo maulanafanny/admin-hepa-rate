@@ -12,7 +12,7 @@ const title = computed(() => {
 })
 useHead({
   title,
-  titleTemplate: (t) => (t ? `${t} | Vitify Admin` : 'Vitify Admin'),
+  titleTemplate: (t) => (t ? `${t} | Hepatitis-A Rate` : 'Hepatitis-A Rate'),
   htmlAttrs: { lang: 'en' },
   link: [{ rel: 'icon', href: '/favicon.ico' }],
 })

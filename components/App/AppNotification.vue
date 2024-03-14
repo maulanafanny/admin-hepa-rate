@@ -29,9 +29,7 @@ function toggleAll() {
   <v-tooltip location="top">
     <template #activator="{ props }">
       <v-btn
-        :icon="
-          notifications.length ? 'mdi-bell-badge-outline' : 'mdi-bell-outline'
-        "
+        :icon="notifications.length ? 'mdi-bell-badge-outline' : 'mdi-bell-outline'"
         :rounded="0"
         v-bind="props"
         @click="toggleAll"
@@ -47,7 +45,10 @@ function toggleAll() {
       class="d-flex flex-column notification-card"
       :class="{ 'notification-card--open': showAll }"
     >
-      <v-toolbar flat density="compact">
+      <v-toolbar
+        flat
+        density="compact"
+      >
         <v-toolbar-title
           class="font-weight-light text-body-1"
           :text="notifications.length ? 'Notification' : 'No New Notifications'"

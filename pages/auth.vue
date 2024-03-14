@@ -57,19 +57,28 @@ watch(loggedIn, () => {
               >
                 <v-tooltip location="top">
                   <template #activator="{ props }">
-                    <v-btn icon="mdi-pencil" v-bind="props" />
+                    <v-btn
+                      icon="mdi-pencil"
+                      v-bind="props"
+                    />
                   </template>
                   <span>Edit</span>
                 </v-tooltip>
                 <v-tooltip location="top">
                   <template #activator="{ props }">
-                    <v-btn icon="mdi-content-copy" v-bind="props" />
+                    <v-btn
+                      icon="mdi-content-copy"
+                      v-bind="props"
+                    />
                   </template>
                   <span>Copy</span>
                 </v-tooltip>
                 <v-tooltip location="top">
                   <template #activator="{ props }">
-                    <v-btn icon="mdi-delete" v-bind="props" />
+                    <v-btn
+                      icon="mdi-delete"
+                      v-bind="props"
+                    />
                   </template>
                   <span>Delete</span>
                 </v-tooltip>

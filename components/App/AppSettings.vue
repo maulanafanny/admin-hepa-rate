@@ -55,12 +55,27 @@ const menuShow = ref(false)
           :modes="['rgb', 'hex', 'hsl']"
           :swatches="colors"
         ></v-color-picker>
-        <v-btn-toggle v-model="store" mandatory class="mt-2" rounded="lg">
-          <v-btn prepend-icon="mdi-white-balance-sunny" value="light"
+        <v-btn-toggle
+          v-model="store"
+          mandatory
+          class="mt-2"
+          rounded="lg"
+        >
+          <v-btn
+            prepend-icon="mdi-white-balance-sunny"
+            value="light"
             >Light</v-btn
           >
-          <v-btn prepend-icon="mdi-weather-night" value="dark">Dark</v-btn>
-          <v-btn prepend-icon="mdi-laptop" value="auto">System</v-btn>
+          <v-btn
+            prepend-icon="mdi-weather-night"
+            value="dark"
+            >Dark</v-btn
+          >
+          <v-btn
+            prepend-icon="mdi-laptop"
+            value="auto"
+            >System</v-btn
+          >
         </v-btn-toggle>
       </v-card-text>
     </v-card>

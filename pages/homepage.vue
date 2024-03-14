@@ -15,9 +15,17 @@ definePageMeta({
 
 <template>
   <div class="wrapper">
-    <v-icon icon="custom:vitify-nuxt" size="3em" color="primary" class="mb-4" />
+    <v-icon
+      icon="custom:vitify-nuxt"
+      size="3em"
+      color="primary"
+      class="mb-4"
+    />
     <p>Opinionated Starter Template</p>
-    <v-responsive max-width="300" class="mx-auto">
+    <v-responsive
+      max-width="300"
+      class="mx-auto"
+    >
       <v-text-field
         v-model="name"
         color="primary"
@@ -26,10 +34,19 @@ definePageMeta({
         class="mx-auto mt-8"
       />
     </v-responsive>
-    <v-btn :disabled="!name" class="mr-2" color="primary" @click="sayHi">
+    <v-btn
+      :disabled="!name"
+      class="mr-2"
+      color="primary"
+      @click="sayHi"
+    >
       Confirm
     </v-btn>
-    <v-btn :disabled="!name" @click="warning">Cancel</v-btn>
+    <v-btn
+      :disabled="!name"
+      @click="warning"
+      >Cancel</v-btn
+    >
   </div>
 </template>
 

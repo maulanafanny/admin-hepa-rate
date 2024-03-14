@@ -4,12 +4,8 @@ import * as mdicons from '@mdi/js'
 const mdi: Record<string, string> = {}
 Object.keys(mdicons).forEach((key) => {
   const value = (mdicons as Record<string, string>)[key]
-  mdi[
-    key.replace(
-      /[A-Z]+(?![a-z])|[A-Z0-9]/g,
-      ($, ofs) => (ofs ? '-' : '') + $.toLowerCase(),
-    )
-  ] = value
+  mdi[key.replace(/[A-Z]+(?![a-z])|[A-Z0-9]/g, ($, ofs) => (ofs ? '-' : '') + $.toLowerCase())] =
+    value
 })
 
 // https://nuxt.com/docs/api/configuration/nuxt-config

@@ -1,9 +1,7 @@
 <template>
   <v-footer app>
     <v-spacer />
-    <v-defaults-provider
-      :defaults="{ VBtn: { variant: 'text', size: 'x-small' } }"
-    >
+    <v-defaults-provider :defaults="{ VBtn: { variant: 'text', size: 'x-small' } }">
       <AppNotification />
       <AppSettings />
     </v-defaults-provider>

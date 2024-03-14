@@ -42,7 +42,10 @@ withDefaults(
       </h3>
       <v-divider />
     </div>
-    <div class="v-alert__border" :class="`text-${color}`" />
+    <div
+      class="v-alert__border"
+      :class="`text-${color}`"
+    />
     <div
       v-if="$slots.footer"
       class="text-grey text-right stats-footer text-caption"

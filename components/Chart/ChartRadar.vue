@@ -61,5 +61,8 @@ const option: ECOption = {
 </script>
 
 <template>
-  <v-chart :option="option" autoresize />
+  <v-chart
+    :option="option"
+    autoresize
+  />
 </template>

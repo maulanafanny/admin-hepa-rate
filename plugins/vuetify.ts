@@ -19,8 +19,7 @@ const svgIcons = Object.fromEntries(
   ).map(([k, v]) => [filename(k), v]),
 )
 const custom: IconSet = {
-  component: (props: IconProps) =>
-    h(props.tag, { innerHTML: svgIcons[props.icon as string] }),
+  component: (props: IconProps) => h(props.tag, { innerHTML: svgIcons[props.icon as string] }),
 }
 
 export default defineNuxtPlugin((nuxtApp) => {

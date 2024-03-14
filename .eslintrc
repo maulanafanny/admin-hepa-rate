@@ -7,7 +7,8 @@
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "vue/valid-v-slot": "off",
-    "prettier/prettier": "warn"
+    "prettier/prettier": "warn",
+    "linebreak-style": "off"
   },
   "plugins": ["prettier"],
   "extends": ["@nuxt/eslint-config", "plugin:prettier/recommended"]

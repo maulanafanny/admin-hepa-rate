@@ -6,14 +6,10 @@ const drawer = useState('drawer')
 const route = useRoute()
 const breadcrumbs = computed(() => {
   return route!.matched
-    .filter(
-      (item) =>
-        item.meta && item.meta.title && !(item.meta?.breadcrumb === 'hidden'),
-    )
+    .filter((item) => item.meta && item.meta.title && !(item.meta?.breadcrumb === 'hidden'))
     .map((r) => ({
       title: r.meta.title!,
-      disabled:
-        r.meta?.breadcrumb === 'disabled' || r.path === route.path || false,
+      disabled: r.meta?.breadcrumb === 'disabled' || r.path === route.path || false,
       to: r.path,
     }))
 })
@@ -47,7 +43,7 @@ const { loggedIn, clear, user } = useUserSession()
         ></v-switch>
       </div>
     </client-only>
-    <v-btn
+    <!-- <v-btn
       icon
       href="https://github.com/kingyue737/vitify-nuxt"
       size="small"
@@ -55,14 +51,27 @@ const { loggedIn, clear, user } = useUserSession()
       target="_blank"
     >
       <v-icon size="30" icon="mdi-github"></v-icon>
-    </v-btn>
+    </v-btn> -->
     <v-menu location="bottom">
       <template #activator="{ props: menu }">
         <v-tooltip location="bottom">
           <template #activator="{ props: tooltip }">
-            <v-btn icon large v-bind="mergeProps(menu, tooltip)" class="ml-1">
-              <v-icon v-if="!loggedIn" icon="mdi-account-circle" size="36" />
-              <v-avatar v-else color="primary" size="36">
+            <v-btn
+              icon
+              large
+              v-bind="mergeProps(menu, tooltip)"
+              class="ml-1"
+            >
+              <v-icon
+                v-if="!loggedIn"
+                icon="mdi-account-circle"
+                size="36"
+              />
+              <v-avatar
+                v-else
+                color="primary"
+                size="36"
+              >
                 <v-img :src="`https://github.com/${user!.login}.png`" />
               </v-avatar>
             </v-btn>

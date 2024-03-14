@@ -35,10 +35,8 @@ export const useNotificationStore = defineStore('notification', {
 
 export const Notify = {
   info: (text: string) => useNotificationStore().addNotification(text, 'info'),
-  success: (text: string) =>
-    useNotificationStore().addNotification(text, 'success'),
-  warning: (text: string) =>
-    useNotificationStore().addNotification(text, 'warning'),
+  success: (text: string) => useNotificationStore().addNotification(text, 'success'),
+  warning: (text: string) => useNotificationStore().addNotification(text, 'warning'),
   error: (val: any) => {
     let text = ''
     if (typeof val === 'string') {

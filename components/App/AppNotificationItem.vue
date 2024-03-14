@@ -43,7 +43,10 @@ if (isActive.value) {
     :title="notification.time.toLocaleString()"
   >
     <template #close>
-      <v-btn icon="$close" @click="$emit('close')" />
+      <v-btn
+        icon="$close"
+        @click="$emit('close')"
+      />
     </template>
   </v-alert>
 </template>

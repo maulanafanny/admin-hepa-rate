@@ -21,13 +21,20 @@ nextTick(() => {
 </script>
 
 <template>
-  <v-navigation-drawer v-model="drawer" :expand-on-hover="rail" :rail="rail">
+  <v-navigation-drawer
+    v-model="drawer"
+    :expand-on-hover="rail"
+    :rail="rail"
+  >
     <template #prepend>
-      <v-list dense nav>
+      <v-list
+        dense
+        nav
+      >
         <v-list-item class="pa-1">
           <template #prepend>
             <v-icon
-              icon="custom:vitify-nuxt"
+              icon="custom:pacitan-logo"
               size="x-large"
               class="drawer-header-icon"
               color="primary"
@@ -37,13 +44,20 @@ nextTick(() => {
             class="text-h5 font-weight-bold"
             style="line-height: 2rem"
           >
-            Vitify <span class="text-primary">Admin</span>
+            Hepatitis-A <span class="text-primary">Rate</span>
           </v-list-item-title>
         </v-list-item>
       </v-list>
     </template>
-    <v-list nav density="compact">
-      <AppDrawerItem v-for="route in routes" :key="route.name" :item="route" />
+    <v-list
+      nav
+      density="compact"
+    >
+      <AppDrawerItem
+        v-for="route in routes"
+        :key="route.name"
+        :item="route"
+      />
     </v-list>
     <v-spacer />
     <template #append>
@@ -52,19 +66,12 @@ nextTick(() => {
           class="text-caption pt-6 pt-md-0 text-center"
           style="white-space: nowrap"
         >
-          &copy; Copyright 2023
+          &copy; Copyright 2024
           <a
-            href="https://github.com/kingyue737"
+            href="https://github.com/maulanafanny/admin-hepa-rate"
             class="font-weight-bold text-primary"
             target="_blank"
-            >Yue JIN</a
-          >
-          <span> & </span>
-          <a
-            href="https://www.nustarnuclear.com/"
-            class="font-weight-bold text-primary"
-            target="_blank"
-            >NuStar</a
+            >Fanny Maulana</a
           >
         </div>
       </v-list-item>
@@ -74,8 +81,8 @@ nextTick(() => {
 
 <style>
 .v-navigation-drawer {
-  transition-property: box-shadow, transform, visibility, width, height, left,
-    right, top, bottom, border-radius !important;
+  transition-property: box-shadow, transform, visibility, width, height, left, right, top, bottom,
+    border-radius !important;
   overflow: hidden;
   border-width: 0px !important;
   &.v-navigation-drawer--rail {
