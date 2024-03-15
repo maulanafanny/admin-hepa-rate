@@ -25,6 +25,7 @@ nextTick(() => {
     v-model="drawer"
     :expand-on-hover="rail"
     :rail="rail"
+    width="300"
   >
     <template #prepend>
       <v-list
@@ -51,7 +52,7 @@ nextTick(() => {
     </template>
     <v-list
       nav
-      density="compact"
+      density="comfortable"
     >
       <AppDrawerItem
         v-for="route in routes"
@@ -84,7 +85,6 @@ nextTick(() => {
   transition-property: box-shadow, transform, visibility, width, height, left, right, top, bottom,
     border-radius !important;
   overflow: hidden;
-  border-width: 0px !important;
   &.v-navigation-drawer--rail {
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;

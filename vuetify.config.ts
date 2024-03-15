@@ -4,13 +4,13 @@ import { md3 } from 'vuetify/blueprints'
 export default defineVuetifyConfiguration({
   blueprint: md3,
   locale: {
-    locale: 'zhHans',
+    locale: 'id',
     fallback: 'en',
   },
   icons: {
     defaultSet: 'mdi-svg',
   },
-  localeMessages: ['zhHans', 'en'],
+  localeMessages: ['id', 'en'],
   defaults: {
     VSwitch: {
       color: 'primary',
