@@ -3,9 +3,11 @@ import DialogConfirm from '~/components/DialogConfirm.vue'
 import type { DataTableHeaders } from '~/plugins/vuetify'
 
 definePageMeta({
-  icon: 'mdi-table',
-  title: 'Data Table',
-  drawerIndex: 3,
+  icon: 'mdi-database-outline',
+  title: 'Data Kriteria',
+  drawerIndex: 4,
+  breadcrumb: 'disabled',
+  widget: 'nav-menu-year-group',
 })
 
 const search = ref('')

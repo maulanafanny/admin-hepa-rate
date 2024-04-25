@@ -1,9 +1,10 @@
 <script setup lang="ts">
 definePageMeta({
-  title: 'Nested Routes',
-  icon: 'mdi-view-list',
-  drawerIndex: 2,
+  title: 'Pemetaan Map',
+  icon: 'mdi-scatter-plot',
+  drawerIndex: 4,
   breadcrumb: 'disabled',
+  widget: 'nav-menu-year-group',
 })
 </script>
 <template>

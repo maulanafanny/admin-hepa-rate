@@ -1,7 +1,8 @@
 <script setup lang="ts">
 definePageMeta({
-  title: 'Menu 2',
-  icon: 'mdi-view-list',
+  title: 'Informasi Umum',
+  icon: 'mdi-information-outline',
+  drawerIndex: 6,
 })
 </script>
 <template>
