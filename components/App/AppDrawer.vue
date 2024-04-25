@@ -61,22 +61,6 @@ nextTick(() => {
       />
     </v-list>
     <v-spacer />
-    <template #append>
-      <v-list-item class="drawer-footer px-0 d-flex flex-column justify-center">
-        <div
-          class="text-caption pt-6 pt-md-0 text-center"
-          style="white-space: nowrap"
-        >
-          &copy; Copyright 2024
-          <a
-            href="https://github.com/maulanafanny/admin-hepa-rate"
-            class="font-weight-bold text-primary"
-            target="_blank"
-            >Fanny Maulana</a
-          >
-        </div>
-      </v-list-item>
-    </template>
   </v-navigation-drawer>
 </template>
 

@@ -5,6 +5,7 @@ declare module '#app' {
     drawerIndex?: number
     /** If disable or hide breadcrumb. Default is enabled */
     breadcrumb?: 'hidden' | 'disabled'
+    widget?: string
   }
 }
 
