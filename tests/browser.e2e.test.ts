@@ -6,16 +6,13 @@ await setup({
   rootDir: fileURLToPath(new URL('../', import.meta.url)),
   browser: true,
 })
+
 describe('page /homepage', () => {
-  it(
-    'should render',
-    async () => {
-      const page = await createPage('/')
-      await page.getByText('Opinionated Starter Template').isVisible()
-      await page.close()
-    },
-    { timeout: 20000 },
-  )
+  it('should render', { timeout: 20000 }, async () => {
+    const page = await createPage('/')
+    await page.getByText('Opinionated Starter Template').isVisible()
+    await page.close()
+  })
 
   it('should show notification', async () => {
     const page = await createPage('/')
@@ -28,15 +25,37 @@ describe('page /homepage', () => {
   })
 })
 
-describe('page /table', () => {
+describe('page /mapping', () => {
   it('should render', async () => {
-    const page = await createPage('/table')
+    const page = await createPage('/mapping/2017')
+    await page.getByText('empty page').isVisible()
+    await page.close()
+  })
+})
+describe('page /stats', () => {
+  it('should render', async () => {
+    const page = await createPage('/stats/2017')
+    await page.getByText('empty page').isVisible()
+    await page.close()
+  })
+})
+describe('page /cluster', () => {
+  it('should render', async () => {
+    const page = await createPage('/cluster/2017')
+    await page.getByText('empty page').isVisible()
+    await page.close()
+  })
+})
+
+describe('page /criteria', () => {
+  it('should render', async () => {
+    const page = await createPage('/criteria/2017')
     await page.getByText('Dessert').isVisible()
     await page.close()
   })
 
   it('should remove a row', async () => {
-    const page = await createPage('/table')
+    const page = await createPage('/criteria/2017')
     const row = page.getByRole('row', { name: 'Yogurt' })
     await row.getByRole('button').click()
     const dialog = page.getByRole('dialog')
