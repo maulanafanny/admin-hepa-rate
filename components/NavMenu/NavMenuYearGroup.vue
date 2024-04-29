@@ -1,40 +1,32 @@
 <script lang="ts" setup>
 import type { RouteRecordRaw } from 'vue-router/auto'
+import { useDatasetStore } from '~/stores/dataset'
+
 const props = defineProps<{ item: RouteRecordRaw }>()
 const icon = computed(() => props.item.meta?.icon)
 const title = computed(() => props.item.meta?.title)
-const loading = ref(false)
+
 const pages = ref()
-const fetchData = () => {
+
+const datasetStore = useDatasetStore()
+const { datasetYears } = storeToRefs(datasetStore)
+
+const fetchPages = async () => {
   if (pages.value) return
-  loading.value = true
-  setTimeout(() => {
-    pages.value = [
-      {
-        name: '2017',
-        label: 'Tahun 2017',
-        icon: 'mdi-circle-small',
-      },
-      {
-        name: '2018',
-        label: 'Tahun 2018',
-        icon: 'mdi-circle-small',
-      },
-      {
-        name: '2019',
-        label: 'Tahun 2019',
-        icon: 'mdi-circle-small',
-      },
-    ]
-    loading.value = false
-  }, 500)
+  if (!datasetYears.value.length) await useDatasetStore().fetchDatasetYears()
+
+  pages.value = datasetYears.value.map((el) => ({
+    name: el.year,
+    label: `Tahun ${el.year}`,
+    icon: 'mdi-circle-small',
+  }))
 }
 </script>
 <template>
   <v-list-group
     :prepend-icon="icon"
     color="primary"
-    @click="fetchData"
+    @click="fetchPages"
   >
     <template #activator="{ props: vProps }">
       <v-list-item
@@ -43,7 +35,7 @@ const fetchData = () => {
       />
     </template>
     <v-skeleton-loader
-      v-if="loading"
+      v-if="!pages"
       type="list-item-two-line"
       class="menu-year-group-skeleton"
     />

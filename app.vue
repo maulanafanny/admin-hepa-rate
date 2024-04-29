@@ -27,13 +27,12 @@ useSeoMeta({
 
 <template>
   <v-app>
-    <AppDrawer />
-    <AppBar />
-    <!-- https://github.com/vuetifyjs/vuetify/issues/15202 -->
+    <app-drawer />
+    <app-bar />
     <v-main style="--v-layout-top: 64px; --v-layout-bottom: 32px">
-      <NuxtPage />
+      <nuxt-page />
     </v-main>
-    <AppFooter />
+    <app-footer />
   </v-app>
 </template>
 
