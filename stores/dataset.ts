@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 
 interface DatasetYear {
+  id: number
   year: number
 }
 
@@ -14,13 +15,10 @@ export const useDatasetStore = defineStore({
     }
   },
   actions: {
-    fetchDatasetYears() {
-      return new Promise<void>((resolve) => {
-        setTimeout(() => {
-          this.datasetYears = [{ year: 2017 }, { year: 2018 }, { year: 2019 }]
-          resolve()
-        }, 500)
-      })
+    async fetchDatasetYears() {
+      const { data } = await useFetch<DatasetYear[]>(`/api/year/findAll`)
+
+      this.datasetYears = data.value || []
     },
   },
 })

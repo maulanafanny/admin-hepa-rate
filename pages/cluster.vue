@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  title: 'Pemetaan Map',
+  title: 'Clustering',
   icon: 'mdi-scatter-plot',
   drawerIndex: 4,
   breadcrumb: 'disabled',
