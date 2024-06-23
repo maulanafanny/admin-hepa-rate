@@ -9,6 +9,7 @@
     "vue/valid-v-slot": "off",
     "prettier/prettier": "warn",
     "linebreak-style": "off",
+    "newline-before-return": "error",
     "vue/html-self-closing": [
       "error",
       {

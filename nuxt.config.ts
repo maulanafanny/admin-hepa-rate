@@ -11,6 +11,12 @@ Object.keys(mdicons).forEach((key) => {
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  devServer: {
+    port: 5000,
+  },
+  app: {
+    pageTransition: { name: 'page', mode: 'out-in' },
+  },
   build: {
     transpile: ['vue-echarts', 'resize-detector'],
   },
@@ -48,6 +54,7 @@ export default defineNuxtConfig({
           } else {
             // eslint-disable-next-line no-console
             console.warn('[plugin-regexp] No matched svg icon for ' + match)
+
             return match
           }
         },

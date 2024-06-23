@@ -1,7 +1,8 @@
-export default eventHandler(async (event) => {
-  await requireUserSession(event)
+import { defineEventHandler } from 'h3'
 
-  // List todos for the current user
+export default defineEventHandler(async (event) => {
+  // await requireUserSession(event)
+
   const people = [
     {
       id: 1,

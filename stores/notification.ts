@@ -9,6 +9,7 @@ export interface Notification {
 export const useNotificationStore = defineStore('notification', {
   state: () => {
     const notifications: Notification[] = []
+
     return {
       notifications,
       notificationCount: 0,
