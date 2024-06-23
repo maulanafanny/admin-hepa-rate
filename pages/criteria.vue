@@ -2,7 +2,7 @@
 definePageMeta({
   icon: 'mdi-database-outline',
   title: 'Data Kriteria',
-  drawerIndex: 4,
+  drawerIndex: 5,
   breadcrumb: 'disabled',
   widget: 'nav-menu-year-group',
 })

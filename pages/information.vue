@@ -6,7 +6,7 @@ import type { DataTableHeaders } from '~/plugins/vuetify'
 definePageMeta({
   title: 'Informasi Umum',
   icon: 'mdi-information-outline',
-  drawerIndex: 5,
+  drawerIndex: 6,
 })
 
 const { data: articles, pending: loadingArticles } = useLazyFetch('/api/article/findAll')

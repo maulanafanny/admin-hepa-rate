@@ -4,7 +4,7 @@ import type { DataTableHeaders } from '~/plugins/vuetify'
 definePageMeta({
   icon: 'mdi-security',
   title: 'Auth',
-  drawerIndex: 6,
+  drawerIndex: 7,
   middleware: 'auth',
 })
 

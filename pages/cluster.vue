@@ -7,6 +7,7 @@ definePageMeta({
   widget: 'nav-menu-year-group',
 })
 </script>
+
 <template>
   <NuxtPage />
 </template>
