@@ -10,7 +10,8 @@ type Article = {
 
 export default defineEventHandler(async (event) => {
   const { title, content } = await readBody(event)
-  const uri = `http://localhost:3000/api/article`
+  const { api_url } = useRuntimeConfig()
+  const uri = `${api_url}/article`
 
   const createdArticle = await $fetch<Article>(uri, {
     method: 'POST',

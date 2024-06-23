@@ -10,7 +10,8 @@ type Article = {
 
 export default defineEventHandler(async (event) => {
   const { id } = getQuery(event)
-  const uri = `http://localhost:3000/api/article/${id}`
+  const { api_url } = useRuntimeConfig()
+  const uri = `${api_url}/articles/${id}`
 
   const article = await $fetch<Article>(uri)
 

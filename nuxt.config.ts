@@ -14,9 +14,6 @@ export default defineNuxtConfig({
   devServer: {
     port: 5000,
   },
-  app: {
-    pageTransition: { name: 'page', mode: 'out-in' },
-  },
   build: {
     transpile: ['vue-echarts', 'resize-detector'],
   },
@@ -63,6 +60,7 @@ export default defineNuxtConfig({
     ],
   },
   runtimeConfig: {
+    api_url: `${process.env.NUXT_API_BASE_URL}/api`,
     github: {
       clientId: '',
       clientSecret: '',

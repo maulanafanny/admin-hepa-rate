@@ -9,10 +9,10 @@ type Article = {
 }
 
 export default defineEventHandler(async (event) => {
-  // await requireUserSession(event)
-  const url = 'http://localhost:3000/api/article'
+  const { api_url } = useRuntimeConfig()
+  const uri = `${api_url}/article`
 
-  const articles = await $fetch<Article[]>(url)
+  const articles = await $fetch<Article[]>(uri)
 
   return articles
 })
