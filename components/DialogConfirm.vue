@@ -12,6 +12,7 @@ function open(text: string) {
   confirmed.value = false
   dialog.value = true
   message.value = text
+
   return new Promise<boolean>((resolveFn) => {
     resolve = resolveFn
   })
@@ -46,13 +47,15 @@ defineExpose({ open })
         <v-btn
           color="primary darken-1"
           @click="cancel"
-          >Cancel</v-btn
         >
+          Batal
+        </v-btn>
         <v-btn
           color="primary darken-1"
           @click="confirm"
-          >Confirm</v-btn
         >
+          Konfirmasi
+        </v-btn>
         <v-spacer />
       </v-card-actions>
     </v-card>

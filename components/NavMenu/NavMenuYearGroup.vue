@@ -52,6 +52,6 @@ const fetchPages = async () => {
 </template>
 <style>
 .menu-year-group-skeleton {
-  background-color: rgb(var(--v-theme-background));
+  background: rgb(var(--v-theme-background)) !important;
 }
 </style>

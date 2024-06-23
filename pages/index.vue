@@ -3,6 +3,6 @@
 </template>
 <script setup lang="ts">
 definePageMeta({
-  redirect: 'homepage',
+  redirect: 'dashboard',
 })
 </script>

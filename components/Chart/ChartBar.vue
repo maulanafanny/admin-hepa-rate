@@ -1,11 +1,43 @@
 <script setup lang="ts">
 import type { ECOption } from '~/plugins/echarts'
+
+const dataValues = [2, 2, 2, 2, 2, 1, 3, 2, 2, 2, 2, 3]
+
+const getColor = (value: number) => {
+  if (value === 3) return '#ff7070'
+  if (value === 2) return '#fac858'
+  if (value === 1) return '#91cc75'
+
+  return 'grey'
+}
+
+const getTooltipText = (value: number) => {
+  if (value === 3) return 'Tinggi'
+  if (value === 2) return 'Sedang'
+  if (value === 1) return 'Rendah'
+
+  return 'Unknown'
+}
+
+const dataWithColors = dataValues.map((value) => ({
+  value,
+  itemStyle: { color: getColor(value) },
+}))
+
 const option: ECOption = {
   backgroundColor: 'transparent',
   tooltip: {
     trigger: 'axis',
     axisPointer: {
       type: 'shadow',
+    },
+    formatter: (params: any) => {
+      let tooltipText = `${params[0].name}<br/>`
+      params.forEach((item: any) => {
+        tooltipText += `${item.seriesName}: <b>${getTooltipText(item.value)}</b>`
+      })
+
+      return tooltipText
     },
   },
   grid: {
@@ -18,7 +50,20 @@ const option: ECOption = {
   xAxis: [
     {
       type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      data: [
+        'Arjosari',
+        'Bandar',
+        'Donorojo',
+        'Kebonagung',
+        'Nawangan',
+        'Ngadirojo',
+        'Pacitan',
+        'Pringkuku',
+        'Punung',
+        'Sudimoro',
+        'Tegalombo',
+        'Tulakan',
+      ],
       axisTick: {
         alignWithLabel: true,
       },
@@ -34,25 +79,11 @@ const option: ECOption = {
   ],
   series: [
     {
-      name: 'pageA',
+      name: 'Tingkat Kerawanan',
       type: 'bar',
       stack: 'vistors',
       barWidth: '60%',
-      data: [79, 52, 200, 334, 390, 330, 220],
-    },
-    {
-      name: 'pageB',
-      type: 'bar',
-      stack: 'vistors',
-      barWidth: '60%',
-      data: [80, 52, 200, 334, 390, 330, 220],
-    },
-    {
-      name: 'pageC',
-      type: 'bar',
-      stack: 'vistors',
-      barWidth: '60%',
-      data: [30, 52, 200, 334, 390, 330, 220],
+      data: dataWithColors,
     },
   ],
 }
