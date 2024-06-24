@@ -15,7 +15,7 @@ const search = ref('')
 const headers: DataTableHeaders = [
   { title: 'No', key: 'no' },
   { title: 'Judul Informasi', key: 'title', minWidth: '200px' },
-  { title: 'Konten Informasi', key: 'content', width: '30%', maxWidth: '30%' },
+  { title: 'Konten Informasi', key: 'content' },
   { title: 'Aksi', key: 'actions', align: 'center', minWidth: '80px' },
 ]
 
@@ -137,14 +137,6 @@ const showDialogForm = (item: any, title: string = 'Edit Artikel') => {
           >
             <template #item.no="{ index }">
               {{ index + 1 }}
-            </template>
-            <template #item.content="{ item }">
-              <div
-                class="text-truncate"
-                style="max-width: 1000px"
-              >
-                {{ item.content }}
-              </div>
             </template>
             <template #item.actions="{ item }">
               <v-defaults-provider

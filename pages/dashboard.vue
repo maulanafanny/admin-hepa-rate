@@ -7,47 +7,50 @@ definePageMeta({
 const stats = ref([
   {
     icon: 'mdi-web',
-    title: 'Bandwidth',
-    value: 23,
-    unit: 'GB',
-    color: 'primary',
-    caption: 'Up: 13, Down: 10',
+    title: 'Sudimoro',
+    value: 699,
+    unit: 'Kasus',
+    color: 'error',
+    caption: 'Populasi: 34rb, 2019',
   },
   {
-    icon: 'mdi-rss',
-    title: 'Submissions',
-    value: 108,
-    color: 'primary',
-    caption: 'Too young, too naive',
+    icon: 'mdi-web',
+    title: 'Ngadirojo',
+    value: 255,
+    unit: 'Kasus',
+    color: 'error',
+    caption: 'Populasi: 48rb, 2019',
   },
   {
-    icon: 'mdi-send',
-    title: 'Requests',
-    value: 1238,
+    icon: 'mdi-web',
+    title: 'Tulakan',
+    value: 102,
+    unit: 'Kasus',
     color: 'warning',
-    caption: 'Limit: 1320',
+    caption: 'Populasi: 86rb, 2019',
   },
   {
-    icon: 'mdi-bell',
-    title: 'Messages',
-    value: 9042,
-    color: 'primary',
-    caption: 'Warnings: 300, erros: 47',
+    icon: 'mdi-web',
+    title: 'Arjosari',
+    value: 34,
+    unit: 'Kasus',
+    color: 'success',
+    caption: 'Populasi: 42rb, 2019',
   },
   {
-    icon: 'mdi-github',
-    title: 'Github Stars',
-    value: NaN,
+    icon: 'mdi-home-group',
+    title: 'Total Populasi',
+    value: 596,
+    unit: 'rb',
     color: 'grey',
-    caption: 'API has no response',
+    caption: 'Tulakan: 86rb',
   },
   {
     icon: 'mdi-currency-cny',
-    title: 'Total Fee',
-    value: 2300,
-    unit: '￥',
+    title: 'Total Kasus',
+    value: 1170,
     color: 'error',
-    caption: 'Upper Limit: 2000 ￥',
+    caption: 'Sudimoro: 699',
   },
 ])
 </script>
@@ -110,7 +113,7 @@ const stats = ref([
         lg="4"
       >
         <v-card class="pa-2">
-          <ChartBar />
+          <ChartBar :data-values="[1, 3, 3, 2, 2, 2, 1, 2, 2, 2, 2, 1]" />
         </v-card>
       </v-col>
     </v-row>

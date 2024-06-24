@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import type { ECOption } from '~/plugins/echarts'
 
-const dataValues = [2, 2, 2, 2, 2, 1, 3, 2, 2, 2, 2, 3]
+const { dataValues } = defineProps({
+  dataValues: {
+    type: Array<number>,
+    required: true,
+  },
+})
 
 const getColor = (value: number) => {
   if (value === 3) return '#ff7070'
