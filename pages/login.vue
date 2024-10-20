@@ -1,5 +1,46 @@
 <script setup lang="ts">
-const login = async (name: string, email: string) => {}
+import type { User } from '#auth-utils'
+
+const form = ref()
+const email = ref('')
+const password = ref('')
+
+const validate = async () => {
+  const { valid } = await form.value.validate()
+
+  return valid
+}
+
+const { session } = useUserSession()
+
+const login = async () => {
+  if (!(await validate())) return
+
+  try {
+    const { data } = await useFetch<{ access_token: string }>('/api/auth/login', {
+      method: 'POST',
+      body: {
+        email: email.value,
+        password: password.value,
+      },
+    })
+
+    localStorage.setItem('token', data.value!.access_token)
+
+    const { data: profile } = await useFetch<User>('/api/user/profile', {
+      method: 'POST',
+      body: {
+        token: data.value!.access_token,
+      },
+    })
+
+    session.value.user = profile.value!
+
+    navigateTo('/')
+  } catch (error) {
+    console.log(error)
+  }
+}
 </script>
 
 <template>
@@ -9,14 +50,21 @@ const login = async (name: string, email: string) => {}
         <p class="text-2xl font-weight-semibold text--primary mb-2">Selamat datang! 👋🏻</p>
         <p class="mb-8">Silahkan login terlebih dahulu.</p>
 
-        <v-form class="mt-4">
+        <v-form
+          ref="form"
+          class="mt-4"
+          @submit.prevent="login"
+        >
           <v-row
             no-gutters
             class="email-phone-input flex-nowrap"
           >
             <v-text-field
+              v-model="email"
               variant="outlined"
               type="email"
+              required
+              :rules="[(v: string) => !!v || 'Email harus diisi']"
               label="Email"
               placeholder="Masukkan email"
               hide-details="auto"
@@ -25,7 +73,11 @@ const login = async (name: string, email: string) => {}
           </v-row>
 
           <v-text-field
+            v-model="password"
+            type="password"
             variant="outlined"
+            required
+            :rules="[(v: string) => !!v || 'Password harus diisi']"
             label="Password"
             placeholder="Masukkan password"
             hide-details="auto"
@@ -42,7 +94,6 @@ const login = async (name: string, email: string) => {}
             color="primary"
             type="submit"
             class="mt-6"
-            @click="login"
           >
             Login
           </v-btn>

@@ -22,6 +22,7 @@ const fetchPages = async () => {
   }))
 }
 </script>
+
 <template>
   <v-list-group
     :prepend-icon="icon"
@@ -31,14 +32,18 @@ const fetchPages = async () => {
     <template #activator="{ props: vProps }">
       <v-list-item
         :title="title"
+        link
+        nav
         v-bind="vProps"
       />
     </template>
+
     <v-skeleton-loader
       v-if="!pages"
       type="list-item-two-line"
       class="menu-year-group-skeleton"
     />
+
     <v-list-item
       v-for="page in pages"
       v-else
@@ -50,6 +55,7 @@ const fetchPages = async () => {
     />
   </v-list-group>
 </template>
+
 <style>
 .menu-year-group-skeleton {
   background: rgb(var(--v-theme-background)) !important;

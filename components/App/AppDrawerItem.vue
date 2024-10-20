@@ -25,6 +25,8 @@ const icon = computed(() => props.item.meta?.icon)
     v-else-if="isItem && icon"
     :to="{ name: item.name || visibleChildren?.[0].name }"
     :prepend-icon="icon"
+    nav
+    link
     active-class="text-primary"
     :title="title"
   />
@@ -36,6 +38,8 @@ const icon = computed(() => props.item.meta?.icon)
     <template #activator="{ props: vProps }">
       <v-list-item
         :title="title"
+        nav
+        link
         v-bind="vProps"
       />
     </template>

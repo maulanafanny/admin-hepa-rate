@@ -9,7 +9,7 @@ definePageMeta({
   drawerIndex: 6,
 })
 
-const { data: articles, pending: loadingArticles } = useLazyFetch('/api/article/findAll')
+const { data: articles, pending: loadingArticles } = useLazyFetch<Article[]>('/api/article/findAll')
 
 const search = ref('')
 const headers: DataTableHeaders = [
@@ -54,7 +54,7 @@ const submitForm = async (form: any) => {
           content: form.content,
         },
       })
-      articles.value!.push(data.value)
+      articles.value!.push(data.value!)
       Notify.success('Artikel berhasil dibuat')
     } catch (e) {
       Notify.error(e)
@@ -128,6 +128,7 @@ const showDialogForm = (item: any, title: string = 'Edit Artikel') => {
               />
             </teleport>
           </client-only>
+
           <v-data-table
             :headers="headers"
             :items="articles || undefined"
@@ -191,6 +192,7 @@ const showDialogForm = (item: any, title: string = 'Edit Artikel') => {
               </v-defaults-provider>
             </template>
           </v-data-table>
+
           <DialogConfirm ref="dialogDelete" />
           <DialogForm ref="dialogForm">
             <template #default="{ modelValue }">

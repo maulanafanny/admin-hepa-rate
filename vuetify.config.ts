@@ -27,9 +27,6 @@ export default defineVuetifyConfiguration({
     VNavigationDrawer: {
       VList: {
         nav: true,
-        VListItem: {
-          rounded: 'xl',
-        },
       },
     },
     VChip: { rounded: 'lg' },

@@ -43,6 +43,8 @@ nextTick(() => {
           </template>
           <v-list-item-title
             class="text-h5 font-weight-bold"
+            link
+            nav
             style="line-height: 2rem"
           >
             Hepatitis-A <span class="text-primary">Rate</span>
@@ -50,9 +52,10 @@ nextTick(() => {
         </v-list-item>
       </v-list>
     </template>
+
     <v-list
       nav
-      density="comfortable"
+      density="compact"
     >
       <AppDrawerItem
         v-for="route in routes"
