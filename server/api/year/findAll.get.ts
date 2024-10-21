@@ -1,15 +1,10 @@
 import { defineEventHandler } from 'h3'
 
-type Criteria = {
-  id: number
-  year: number
-}
-
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async () => {
   const { api_url } = useRuntimeConfig()
   const uri = `${api_url}/year`
 
-  const criterias = await $fetch<Criteria[]>(uri)
+  const years = await $fetch<Year[]>(uri)
 
-  return criterias
+  return years
 })
