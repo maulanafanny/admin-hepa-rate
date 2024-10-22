@@ -87,7 +87,7 @@ const center = { lat: -8.1, lng: 111.2 }
       :loading="loadingCriterias"
     >
       <GoogleMap
-        :api-key="useRuntimeConfig().maps_api_key"
+        :api-key="useRuntimeConfig().public.maps_api_key"
         style="width: 100%; height: 100%"
         :center="center"
         :zoom="11"
