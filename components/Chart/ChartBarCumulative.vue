@@ -24,7 +24,7 @@ const getTooltipText = (value: number) => {
   if (value === 2) return 'Sedang'
   if (value === 1) return 'Rendah'
 
-  return 'Unknown'
+  return ''
 }
 
 const datasets = computed(() => {
@@ -80,13 +80,30 @@ const option: ECOption = {
   yAxis: [
     {
       type: 'value',
+      axisLabel: {
+        formatter: (value: number) => getTooltipText(value),
+      },
     },
   ],
   series: datasets.value.map((dataset) => ({
     name: dataset,
     type: 'bar',
     barGap: 0,
-    label: labelOption,
+    label: {
+      show: true,
+      position: 'insideBottom',
+      distance: 15,
+      align: 'left',
+      verticalAlign: 'middle',
+      rotate: 90,
+      formatter: (params: any) =>
+        `{name|${params.seriesName}} - {value|${getTooltipText(params.value)}}`,
+      fontSize: 16,
+      rich: {
+        name: {},
+        value: {},
+      },
+    },
     emphasis: {
       focus: 'series',
     },

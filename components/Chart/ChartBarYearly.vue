@@ -21,7 +21,7 @@ const getTooltipText = (value: number) => {
   if (value === 2) return 'Sedang'
   if (value === 1) return 'Rendah'
 
-  return 'Unknown'
+  return ''
 }
 
 const dataWithColors = dataValues.map((data) => ({
@@ -65,6 +65,9 @@ const option: ECOption = {
   yAxis: [
     {
       type: 'value',
+      axisLabel: {
+        formatter: (value: number) => getTooltipText(value),
+      },
       axisTick: {
         show: false,
       },
