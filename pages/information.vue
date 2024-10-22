@@ -194,17 +194,22 @@ const showDialogForm = (item: any, title: string = 'Edit Artikel') => {
           </v-data-table>
 
           <DialogConfirm ref="dialogDelete" />
-          <DialogForm ref="dialogForm">
+          <DialogForm
+            ref="dialogForm"
+            max-width="1000px"
+          >
             <template #default="{ modelValue }">
               <v-text-field
                 v-model="modelValue.title"
                 label="Judul"
-                :rules="[(v) => !!v || 'Judul tidak boleh kosong']"
+                :rules="[(v: string) => !!v || 'Judul tidak boleh kosong']"
               />
               <v-textarea
                 v-model="modelValue.content"
                 label="Konten"
-                :rules="[(v) => !!v || 'Konten tidak boleh kosong']"
+                auto-grow
+                variant="outlined"
+                :rules="[(v: string) => !!v || 'Konten tidak boleh kosong']"
               />
             </template>
           </DialogForm>

@@ -3,13 +3,13 @@ import { ref, computed } from 'vue'
 import { GoogleMap, Polygon, InfoWindow } from 'vue3-google-map'
 import pacitanGeoJSON from '~/assets/pacitan.json'
 
-const route = useRoute()
-const currentRouteYear = computed(() => route.path.split('/')[2])
-
 definePageMeta({
   title: 'Pemetaan Kerawanan',
   breadcrumb: 'disabled',
 })
+
+const route = useRoute()
+const currentRouteYear = computed(() => route.path.split('/')[2])
 
 const { data: criterias, pending: loadingCriterias } = useLazyFetch('/api/criteria/findByYear', {
   params: { year: currentRouteYear.value },

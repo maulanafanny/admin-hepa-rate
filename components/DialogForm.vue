@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+defineProps({
+  maxWidth: {
+    type: String,
+    default: '600px',
+  },
+})
 
 const dialog = ref(false)
 const confirmed = ref(false)
@@ -15,8 +20,10 @@ watch(dialog, (v) => {
 const form = ref({
   title: '',
   valid: false,
-  modelValue: {},
-  onSubmit: (value: any) => {},
+  modelValue: {} as any,
+  onSubmit: (value: any) => {
+    console.log('submit', value)
+  },
   submit() {
     if (this.valid) {
       this.onSubmit(this.modelValue)
@@ -48,7 +55,7 @@ defineExpose({ open })
 <template>
   <v-dialog
     v-model="dialog"
-    max-width="600px"
+    :max-width="maxWidth"
   >
     <v-card>
       <v-card-item>
