@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import DialogConfirm from '~/components/DialogConfirm.vue'
+import DialogForm from '~/components/DialogForm.vue'
 import type { DataTableHeaders } from '~/plugins/vuetify'
+import type { Criteria } from '~/types/criteria'
 
 const route = useRoute()
 const currentRouteYear = computed(() => route.path.split('/')[2])
@@ -11,8 +12,18 @@ definePageMeta({
 })
 
 const search = ref('')
-const dialogDelete = ref<InstanceType<typeof DialogConfirm> | null>(null)
+const dialogCreate = ref<InstanceType<typeof DialogForm> | null>(null)
+const openDialogCreate = () =>
+  dialogCreate.value?.open('Tambah Data', {}, async (value: any) => {
+    await fetch('/api/criteria', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(value),
+    })
+  })
 
+const oldData = ref<any>({})
+const editId = ref<number | null>(null)
 const headers: DataTableHeaders = [
   { title: 'No', key: 'no' },
   { title: 'Kecamatan', key: 'district.name' },
@@ -21,12 +32,42 @@ const headers: DataTableHeaders = [
   { title: 'Kepadatan Penduduk', key: 'criteria.total_population' },
   { title: 'Sanitasi Lingkungan', key: 'criteria.sanitation_rate' },
   { title: 'Rumah Sehat', key: 'criteria.safe_house_rate' },
-  { title: 'Aksi', key: 'actions', align: 'center' },
+  { title: 'Aksi', key: 'actions', align: 'center', sortable: false },
 ]
 
-const { data: criterias, pending: loadingCriterias } = useLazyFetch('/api/criteria/findByYear', {
-  params: { year: currentRouteYear.value },
-})
+const handleStartEdit = (item: Criteria) => {
+  editId.value = item.district.id
+  oldData.value = Object.assign({}, item.criteria)
+}
+const handleCancelEdit = (item: Criteria) => {
+  editId.value = null
+  const cancelled = criterias.value?.find((criteria) => criteria.district.id === item.district.id)
+  cancelled!.criteria = Object.assign({}, oldData.value)
+}
+const handleSubmitEdit = async (item: Criteria) => {
+  editId.value = null
+  oldData.value = {}
+
+  try {
+    await useFetch(`/api/criteria/update`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: { ...item.criteria },
+    })
+
+    Notify.success('Berhasil mengubah data')
+  } catch (error) {
+    console.error(error)
+    Notify.error('Terjadi kesalahan saat mengubah data')
+  }
+}
+
+const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
+  '/api/criteria/findByYear',
+  {
+    params: { year: currentRouteYear.value },
+  },
+)
 </script>
 
 <template>
@@ -36,6 +77,7 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch('/api/criter
     <v-btn
       color="primary"
       class="mb-3"
+      @click="openDialogCreate"
     >
       Tambah Data
     </v-btn>
@@ -59,6 +101,7 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch('/api/criter
               />
             </teleport>
           </client-only>
+
           <v-data-table
             :headers="headers"
             :items="criterias || undefined"
@@ -70,7 +113,78 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch('/api/criter
             <template #item.no="{ index }">
               {{ index + 1 }}
             </template>
-            <template #item.actions>
+
+            <template #item.criteria.clean_water_rate="{ item }">
+              <div v-if="editId !== item.district.id">{{ item.criteria.clean_water_rate }}</div>
+              <v-text-field
+                v-else
+                id="id"
+                v-model="item.criteria.clean_water_rate"
+                density="compact"
+                type="number"
+                hide-details="auto"
+                step="0.01"
+                name="criteria.clean_water_rate"
+              />
+            </template>
+
+            <template #item.criteria.total_case="{ item }">
+              <div v-if="editId !== item.district.id">{{ item.criteria.total_case }}</div>
+              <v-text-field
+                v-else
+                id="id"
+                v-model="item.criteria.total_case"
+                density="compact"
+                type="number"
+                step="1"
+                hide-details="auto"
+                name="criteria.total_case"
+              />
+            </template>
+
+            <template #item.criteria.total_population="{ item }">
+              <div v-if="editId !== item.district.id">{{ item.criteria.total_population }}</div>
+              <v-text-field
+                v-else
+                id="id"
+                v-model="item.criteria.total_population"
+                density="compact"
+                type="number"
+                step="1"
+                hide-details="auto"
+                name="criteria.total_population"
+              />
+            </template>
+
+            <template #item.criteria.sanitation_rate="{ item }">
+              <div v-if="editId !== item.district.id">{{ item.criteria.sanitation_rate }}</div>
+              <v-text-field
+                v-else
+                id="id"
+                v-model="item.criteria.sanitation_rate"
+                density="compact"
+                type="number"
+                step="0.01"
+                hide-details="auto"
+                name="criteria.sanitation_rate"
+              />
+            </template>
+
+            <template #item.criteria.safe_house_rate="{ item }">
+              <div v-if="editId !== item.district.id">{{ item.criteria.safe_house_rate }}</div>
+              <v-text-field
+                v-else
+                id="id"
+                v-model="item.criteria.safe_house_rate"
+                density="compact"
+                type="number"
+                step="0.01"
+                hide-details="auto"
+                name="criteria.safe_house_rate"
+              />
+            </template>
+
+            <template #item.actions="{ item }">
               <v-defaults-provider
                 :defaults="{
                   VBtn: {
@@ -85,22 +199,62 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch('/api/criter
                   },
                 }"
               >
-                <v-tooltip location="top">
+                <v-tooltip
+                  v-if="editId !== item.district.id"
+                  location="top"
+                >
                   <template #activator="{ props }">
                     <v-btn
                       icon="mdi-pencil-outline"
                       v-bind="props"
+                      @click="handleStartEdit(item)"
                     />
                   </template>
                   <span>Ubah</span>
                 </v-tooltip>
+                <div
+                  v-else
+                  class="d-flex align-center"
+                >
+                  <v-tooltip location="top">
+                    <template #activator="{ props }">
+                      <v-btn
+                        icon="mdi-close"
+                        v-bind="props"
+                        color="error"
+                        @click="handleCancelEdit(item)"
+                      />
+                    </template>
+                    <span>Batal</span>
+                  </v-tooltip>
+
+                  <v-tooltip location="top">
+                    <template #activator="{ props }">
+                      <v-btn
+                        icon="mdi-check"
+                        v-bind="props"
+                        color="success"
+                        @click="handleSubmitEdit(item)"
+                      />
+                    </template>
+                    <span>Simpan Perubahan</span>
+                  </v-tooltip>
+                </div>
               </v-defaults-provider>
             </template>
+
             <template #bottom>
               <div />
             </template>
           </v-data-table>
-          <DialogConfirm ref="dialogDelete" />
+
+          <DialogForm ref="dialogCreate">
+            <v-text-field
+              v-model="search"
+              solo
+              label="label"
+            />
+          </DialogForm>
         </v-card>
       </v-col>
     </v-row>
