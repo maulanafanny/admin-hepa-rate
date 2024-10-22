@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import ChartBarYearly from '~/components/Chart/ChartBarYearly.vue'
+
+const { data: criterias, pending: loadingCriterias } = useLazyFetch('/api/criteria/findByYear', {
+  params: { year: 2019 },
+})
+
 definePageMeta({
   icon: 'mdi-monitor-dashboard',
   title: 'Dashboard',
@@ -112,8 +118,19 @@ const stats = ref([
         md="6"
         lg="4"
       >
-        <v-card class="pa-2">
-          <ChartBar :data-values="[1, 3, 3, 2, 2, 2, 1, 2, 2, 2, 2, 1]" />
+        <v-card
+          class="pa-2"
+          :loading="loadingCriterias"
+        >
+          <ChartBarYearly
+            v-if="!loadingCriterias"
+            :data-values="
+              criterias?.map((c) => ({
+                label: c.district.name,
+                value: c.criteria.cluster_id + 1,
+              })) || []
+            "
+          />
         </v-card>
       </v-col>
     </v-row>

@@ -3,7 +3,7 @@ import type { ECOption } from '~/plugins/echarts'
 
 const { dataValues } = defineProps({
   dataValues: {
-    type: Array<number>,
+    type: Array<{ label: string; value: number }>,
     required: true,
   },
 })
@@ -24,9 +24,9 @@ const getTooltipText = (value: number) => {
   return 'Unknown'
 }
 
-const dataWithColors = dataValues.map((value) => ({
-  value,
-  itemStyle: { color: getColor(value) },
+const dataWithColors = dataValues.map((data) => ({
+  value: data.value,
+  itemStyle: { color: getColor(data.value) },
 }))
 
 const option: ECOption = {
@@ -38,6 +38,7 @@ const option: ECOption = {
     },
     formatter: (params: any) => {
       let tooltipText = `${params[0].name}<br/>`
+
       params.forEach((item: any) => {
         tooltipText += `${item.seriesName}: <b>${getTooltipText(item.value)}</b>`
       })
@@ -55,20 +56,7 @@ const option: ECOption = {
   xAxis: [
     {
       type: 'category',
-      data: [
-        'Arjosari',
-        'Bandar',
-        'Donorojo',
-        'Kebonagung',
-        'Nawangan',
-        'Ngadirojo',
-        'Pacitan',
-        'Pringkuku',
-        'Punung',
-        'Sudimoro',
-        'Tegalombo',
-        'Tulakan',
-      ],
+      data: dataValues.map((value) => value.label),
       axisTick: {
         alignWithLabel: true,
       },
