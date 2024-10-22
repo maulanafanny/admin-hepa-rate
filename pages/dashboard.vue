@@ -1,15 +1,30 @@
 <script setup lang="ts">
 import ChartBarYearly from '~/components/Chart/ChartBarYearly.vue'
-
-const { data: criterias, pending: loadingCriterias } = useLazyFetch('/api/criteria/findByYear', {
-  params: { year: 2019 },
-})
+import type { Year } from '~/types/year'
 
 definePageMeta({
   icon: 'mdi-monitor-dashboard',
   title: 'Dashboard',
   drawerIndex: 1,
 })
+
+const { data: criterias, pending: loadingCriterias } = useLazyFetch('/api/criteria/findAll')
+const { data: datasets, pending: loadingDatasets } = useLazyFetch<Year[]>('/api/year/findAll')
+
+const totalCasePerYear: ComputedRef<[string, number][]> = computed(() => {
+  if (!datasets.value || !criterias.value) return [['2017', 0]]
+
+  return datasets.value.map((d) => {
+    const yearString = String(d.year)
+
+    const totalCases = criterias
+      .value!.filter((c) => c.year.year === d.year)
+      .reduce((acc, c) => acc + (c.criteria?.total_case || 0), 0)
+
+    return [yearString, totalCases]
+  })
+})
+
 const stats = ref([
   {
     icon: 'mdi-web',
@@ -85,16 +100,24 @@ const stats = ref([
         </StatsCard>
       </v-col>
     </v-row>
+
     <v-row>
       <v-col
         cols="12"
         md="6"
         lg="12"
       >
-        <v-card class="pa-2">
-          <ChartLine />
+        <v-card
+          class="pa-2"
+          :loading="loadingDatasets && loadingCriterias"
+        >
+          <ChartLine
+            v-if="totalCasePerYear"
+            :data="totalCasePerYear"
+          />
         </v-card>
       </v-col>
+
       <v-col
         cols="12"
         md="6"
@@ -104,6 +127,7 @@ const stats = ref([
           <ChartRadar />
         </v-card>
       </v-col>
+
       <v-col
         cols="12"
         md="6"
@@ -113,6 +137,7 @@ const stats = ref([
           <ChartPie />
         </v-card>
       </v-col>
+
       <v-col
         cols="12"
         md="6"
@@ -125,10 +150,12 @@ const stats = ref([
           <ChartBarYearly
             v-if="!loadingCriterias"
             :data-values="
-              criterias?.map((c) => ({
-                label: c.district.name,
-                value: c.criteria.cluster_id + 1,
-              })) || []
+              criterias
+                ?.filter((c) => c.year.year === Number(2019))
+                .map((c) => ({
+                  label: c.district.name,
+                  value: c.criteria.cluster_id + 1,
+                })) || []
             "
           />
         </v-card>
