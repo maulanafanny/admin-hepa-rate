@@ -60,7 +60,7 @@ export default defineNuxtConfig({
     ],
   },
   runtimeConfig: {
-    api_url: `${process.env.NUXT_API_BASE_URL}api`,
+    api_url: `${process.env.NUXT_API_BASE_URL}/api`,
     github: {
       clientId: process.env.NUXT_OAUTH_GITHUB_CLIENT_ID,
       clientSecret: process.env.NUXT_OAUTH_GITHUB_CLIENT_SECRET,
@@ -69,5 +69,6 @@ export default defineNuxtConfig({
       name: 'nuxt-session',
       password: '',
     },
+    maps_api_key: process.env.GOOGLE_MAPS_API_KEY,
   },
 })

@@ -1,4 +1,5 @@
 import { defineEventHandler } from 'h3'
+import { Year } from '~/types/year'
 
 export default defineEventHandler(async () => {
   const { api_url } = useRuntimeConfig()
@@ -6,5 +7,5 @@ export default defineEventHandler(async () => {
 
   const years = await $fetch<Year[]>(uri)
 
-  return years
+  return years.sort((a, b) => a.id - b.id)
 })
