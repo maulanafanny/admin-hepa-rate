@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { BarSeriesLabelOption } from 'echarts/types/src/chart/bar/BarSeries.js'
 import type { ECOption } from '~/plugins/echarts'
 
 const { dataValues } = defineProps({
@@ -40,20 +39,6 @@ const labels = computed(() => {
 
   return Array.from(label)
 })
-
-const labelOption: BarSeriesLabelOption = {
-  show: true,
-  position: 'insideBottom',
-  distance: 15,
-  align: 'left',
-  verticalAlign: 'middle',
-  rotate: 90,
-  formatter: '{c}  {name|{a}}',
-  fontSize: 16,
-  rich: {
-    name: {},
-  },
-}
 
 const option: ECOption = {
   backgroundColor: 'transparent',

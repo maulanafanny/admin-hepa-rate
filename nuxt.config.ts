@@ -26,6 +26,7 @@ export default defineNuxtConfig({
     'vuetify-nuxt-module',
     'nuxt-auth-utils',
     '@nuxt/test-utils/module',
+    '@nuxtjs/google-fonts',
   ],
   css: ['~/assets/styles/index.css'],
   experimental: { typedPages: true },
@@ -39,6 +40,12 @@ export default defineNuxtConfig({
         reloadOnFirstRequest: true,
       },
     },
+  },
+  googleFonts: {
+    families: {
+      Overpass: [500, 600, 700], // Specify the weights you want to load
+    },
+    display: 'swap', // Ensures text is still visible during font loading
   },
   vite: {
     plugins: [

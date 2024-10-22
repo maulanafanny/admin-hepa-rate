@@ -21,8 +21,8 @@ const isDark = useDark({
 const toggleDark = useToggle<true, false | null>(isDark)
 const { loggedIn, clear, user } = useUserSession()
 
-const handleLogout = () => {
-  clear()
+const handleLogout = async () => {
+  await clear()
   localStorage.removeItem('token')
   navigateTo('/login')
 }

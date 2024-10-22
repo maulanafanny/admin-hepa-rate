@@ -23,16 +23,18 @@ useSeoMeta({
   twitterImage: '/social-image.png',
   twitterCard: 'summary_large_image',
 })
+
+const { loggedIn } = useUserSession()
 </script>
 
 <template>
   <v-app>
-    <app-drawer />
-    <app-bar />
-    <v-main style="--v-layout-top: 64px; --v-layout-bottom: 32px">
+    <app-drawer v-if="loggedIn" />
+    <app-bar v-if="loggedIn" />
+    <v-main :style="loggedIn ? '--v-layout-top: 64px; --v-layout-bottom: 32px' : ''">
       <nuxt-page />
     </v-main>
-    <app-footer />
+    <app-footer v-if="loggedIn" />
   </v-app>
 </template>
 
