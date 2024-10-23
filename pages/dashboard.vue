@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ChartBarYearly from '~/components/Chart/ChartBarYearly.vue'
+import ChartLineCase from '~/components/Chart/ChartLineCase.vue'
 import type { Year } from '~/types/year'
 
 definePageMeta({
@@ -111,7 +112,7 @@ const stats = ref([
           class="pa-2"
           :loading="loadingDatasets && loadingCriterias"
         >
-          <ChartLine
+          <ChartLineCase
             v-if="totalCasePerYear"
             :data="totalCasePerYear"
           />

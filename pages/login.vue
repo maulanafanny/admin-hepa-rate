@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import type { User } from '#auth-utils'
 
+definePageMeta({
+  title: 'Login',
+  name: 'login',
+})
+
 const form = ref()
 const email = ref('')
 const password = ref('')

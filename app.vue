@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { THEME_KEY } from 'vue-echarts'
-import Login from './pages/login.vue'
 
 const theme = useTheme()
 provide(
@@ -14,23 +13,21 @@ const title = computed(() => {
 useHead({
   title,
   titleTemplate: (t) => (t ? `${t} | Hepatitis-A Rate` : 'Hepatitis-A Rate'),
-  htmlAttrs: { lang: 'en' },
+  htmlAttrs: { lang: 'id' },
   link: [{ rel: 'icon', href: '/favicon.ico' }],
 })
 useSeoMeta({
   viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
-  description: 'Vuetify 3 + Nuxt 3, Opinionated Admin Starter Template',
+  description: 'Admin dashboard for Hepatitis-A Rate Visualization',
   ogImage: '/social-image.png',
   twitterImage: '/social-image.png',
   twitterCard: 'summary_large_image',
 })
-
-const { loggedIn } = useUserSession()
 </script>
 
 <template>
   <v-app>
-    <template v-if="loggedIn">
+    <template v-if="route.name !== 'login'">
       <app-drawer />
       <app-bar />
       <v-main style="--v-layout-top: 64px; --v-layout-bottom: 32px">
@@ -38,7 +35,11 @@ const { loggedIn } = useUserSession()
       </v-main>
       <app-footer />
     </template>
-    <Login v-else />
+    <template v-else>
+      <v-main>
+        <nuxt-page />
+      </v-main>
+    </template>
   </v-app>
 </template>
 

@@ -36,6 +36,7 @@
     "echarts": "^5.5.0",
     "nuxt-auth-utils": "^0.0.20",
     "vue-echarts": "^6.6.9",
-    "vue3-google-map": "^0.21.0"
+    "vue3-google-map": "^0.21.0",
+    "vue3-lottie": "^3.3.1"
   }
 }

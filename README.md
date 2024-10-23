@@ -1,26 +1,14 @@
 <p align="center">
-  <img alt="Vitify - Opinionated Vuetify Admin Starter Template" src="public/vitify-nuxt.svg" width=100px/>
+  <img alt="Hepatitis-A Rate Admin" src="public/favicon.ico" width=100px/>
 </p>
-<h1 align="center">Vitify Nuxt</h1>
+<h1 align="center">Admin Hepatitis-A Rate</h1>
 
-<p align="center">
-  <a href="https://github.com/vuejs/vue">
-    <img src="https://img.shields.io/badge/nuxt-3-brightgreen.svg" alt="vue">
-  </a>
-  <a href="https://github.com/vuetifyjs/vuetify">
-    <img src="https://img.shields.io/badge/vuetify-3-blue.svg" alt="vuetify">
-  </a>
-  <a href="https://github.com/maulanafanny/admin-hepa-rate/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="license">
-  </a>
+<p align='center'>
+  Admin dashboard for Hepatitis-A Rate Visualization, made with <b>Vuetify 3</b> + <b>Nuxt 3</b><br><br>
 </p>
 
 <p align='center'>
-  <b>Vuetify 3</b> + <b>Nuxt 3</b>, Opinionated Admin Starter Template<br><br>
-</p>
-
-<p align='center'>
-  <a href="https://admin-hepa-rate.vercel.app/">Live Demo<br><br></a>
+  <a href="https://admin-hepa-rate.vercel.app/">Proceed to App<br><br></a>
 </p>
 
 ## Features
@@ -30,11 +18,8 @@
 - ⚡️ [Vite 4](https://github.com/vitejs/vite), [pnpm](https://pnpm.io/), [ESBuild](https://github.com/evanw/esbuild) - born with fastness
 - 🍍 [State Management via Pinia](https://pinia.vuejs.org/)
 - 📥 APIs auto importing - for Composition API, VueUse and custom composables
-- ☁️ Deploy on [Vercel](https://www.vercel.com/), zero-config
 - 🦾 TypeScript 100%
 - 🧪 Unit, Component and E2E Testing with [@nuxt/test-utils](https://github.com/nuxt/test-utils)
-
-<br>
 
 ### Admin Starter Template
 
@@ -69,35 +54,12 @@
 
 - [TypeScript](https://www.typescriptlang.org/)
 - [pnpm](https://pnpm.js.org/) - Fast, disk space efficient package manager
-- [Vercel](https://www.vercel.com/) - zero-config deployment
 - [VS Code Extensions](./.vscode/extensions.json)
   - [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) - TypeScript support inside Vue SFCs
   - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - Find and fix problems in your code
   - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - Code formatter
   - [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
   - [Material Design Icons Intellisense](https://marketplace.visualstudio.com/items?itemName=lukas-tr.materialdesignicons-intellisense)
-
-### Authentication Setup
-
-> You can switch to any [OAuth Providers](https://github.com/Atinux/nuxt-auth-utils#supported-oauth-providers) supported by [Nuxt Auth Utils](https://github.com/Atinux/nuxt-auth-utils) or write your own.
-
-Create a [GitHub OAuth Application](https://github.com/settings/applications/new) with:
-
-- Homepage url: `http://localhost:3000`
-- Callback url: `http://localhost:3000/api/auth/github`
-
-Add the variables in the `.env` file:
-
-```bash
-NUXT_OAUTH_GITHUB_CLIENT_ID="my-github-oauth-app-id"
-NUXT_OAUTH_GITHUB_CLIENT_SECRET="my-github-oauth-app-secret"
-```
-
-To create sealed sessions, you also need to add `NUXT_SESSION_SECRET` in the `.env` with at least 32 characters:
-
-```bash
-NUXT_SESSION_SECRET=your-super-long-secret-for-session-encryption
-```
 
 ### Development
 
