@@ -83,8 +83,7 @@ const stats = ref([
       <v-col
         v-for="stat in stats"
         :key="stat.title"
-        cols="12"
-        sm="6"
+        cols="6"
         md="4"
         lg="2"
       >
@@ -113,7 +112,7 @@ const stats = ref([
           :loading="loadingDatasets && loadingCriterias"
         >
           <ChartLineCase
-            v-if="criterias && totalCasePerYear"
+            v-if="datasets && criterias"
             :data="totalCasePerYear"
           />
         </v-card>
@@ -152,10 +151,10 @@ const stats = ref([
             v-if="!loadingCriterias"
             :data-values="
               criterias
-                ?.filter((c) => c.year.year === Number(2019))
+                ?.filter((c) => c.year.year === '2019')
                 .map((c) => ({
                   label: c.district.name,
-                  value: c.criteria.cluster_id + 1,
+                  value: c.criteria.cluster_id! + 1,
                 })) || []
             "
           />

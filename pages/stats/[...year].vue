@@ -22,8 +22,8 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
 const yearlyData = computed(() => {
   return (
     criterias.value
-      ?.filter((c) => c.year.year === Number(currentRouteYear.value))
-      .map((c) => ({ label: c.district.name, value: c.criteria.cluster_id + 1 })) || []
+      ?.filter((c) => c.year.year === currentRouteYear.value)
+      .map((c) => ({ label: c.district.name, value: c.criteria.cluster_id! + 1 })) || []
   )
 })
 
@@ -31,7 +31,7 @@ const cumulativeData = computed(() => {
   return (
     criterias.value?.map((c) => ({
       label: c.district.name,
-      value: c.criteria.cluster_id + 1,
+      value: c.criteria.cluster_id! + 1,
       dataset: c.year.year,
     })) || []
   )

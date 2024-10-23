@@ -49,7 +49,7 @@ const showDialogDelete = (id: number) => {
           const index = articles.value!.findIndex((v) => v.id === id)
           await deleteArticle(id)
           articles.value!.splice(index, 1)
-          Notify.success('Deleted')
+          Notify.success('Artikel berhasil dihapus')
         } catch (e) {
           Notify.error(e)
         }
@@ -96,26 +96,31 @@ const submitForm = async (form: any) => {
 
 const dialogForm = ref<InstanceType<typeof DialogForm> | null>(null)
 const showDialogForm = (item: any, title: string = 'Edit Artikel') => {
-  dialogForm.value
-    ?.open(title, item, (value) => submitForm(value))
-    .then(async (confirmed: boolean) => {
-      if (confirmed) {
-        try {
-          Notify.success('Edited')
-        } catch (e) {
-          Notify.error(e)
-        }
-      }
-    })
+  dialogForm.value?.open(title, item, (value) => submitForm(value))
 }
 
 const dateFormat = (date: string) => {
-  console.log(date)
   const [datePart, timePart] = date.split('T')
   const [year, month, day] = datePart.split('-')
   const [hour, minute] = timePart.split(':')
 
-  return `${day}-${month}-${year} · ${hour}:${minute}`
+  const monthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ]
+  const monthName = monthNames[parseInt(month) - 1]
+
+  return `${day} ${monthName} ${year} · ${hour}:${minute}`
 }
 </script>
 

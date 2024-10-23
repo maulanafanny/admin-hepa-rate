@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
   const { year } = getQuery(event)
 
   const criterias = await $fetch<Criteria[]>(uri)
-  const criteriasByYear = criterias.filter((el) => el.year.year === Number(year))
+  const criteriasByYear = criterias.filter((el) => el.year.year === year)
 
   return criteriasByYear
 })

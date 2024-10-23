@@ -6,7 +6,7 @@ export type Criteria = {
     sanitation_rate: number
     clean_water_rate: number
     safe_house_rate: number
-    cluster_id: number
+    cluster_id: number | null
     district_id: number
     year_id: number
     createdAt: Date
@@ -18,6 +18,6 @@ export type Criteria = {
   }
   year: {
     id: number
-    year: number
+    year: string
   }
 }

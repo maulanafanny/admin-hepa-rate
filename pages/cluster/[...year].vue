@@ -15,7 +15,7 @@ const headers: DataTableHeaders = [
   { title: 'Kecamatan', key: 'district.name' },
   { title: 'Air Bersih', key: 'criteria.clean_water_rate' },
   { title: 'Histori Kasus', key: 'criteria.total_case' },
-  { title: 'Kepadatan Penduduk', key: 'criteria.total_population' },
+  { title: 'Jumlah Penduduk', key: 'criteria.total_population' },
   { title: 'Sanitasi Lingkungan', key: 'criteria.sanitation_rate' },
   { title: 'Rumah Sehat', key: 'criteria.safe_house_rate' },
   { title: 'Kerawanan', key: 'criteria.cluster_id', align: 'center' },
@@ -116,9 +116,13 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
               </template>
 
               <template #item.criteria.cluster_id="{ item }">
-                <v-chip :color="clusterDetail[item.criteria.cluster_id].color">
+                <v-chip
+                  v-if="item.criteria.cluster_id !== null"
+                  :color="clusterDetail[item.criteria.cluster_id].color"
+                >
                   {{ clusterDetail[item.criteria.cluster_id].label }}
                 </v-chip>
+                <v-chip v-else> Unknown </v-chip>
               </template>
 
               <template #bottom />

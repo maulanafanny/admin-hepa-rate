@@ -3,7 +3,7 @@ import type { ECOption } from '~/plugins/echarts'
 
 const { dataValues } = defineProps({
   dataValues: {
-    type: Array<{ label: string; value: number; dataset: number }>,
+    type: Array<{ label: string; value: number; dataset: string }>,
     required: true,
   },
 })
@@ -17,8 +17,6 @@ const getColor = (value: number) => {
 }
 
 const getTooltipText = (value: number) => {
-  console.log(value)
-
   if (value === 3) return 'Tinggi'
   if (value === 2) return 'Sedang'
   if (value === 1) return 'Rendah'
@@ -93,7 +91,7 @@ const option: ECOption = {
       focus: 'series',
     },
     data: dataValues
-      .filter((data) => data.dataset === Number(dataset))
+      .filter((data) => data.dataset === dataset)
       .map((data) => ({ value: data.value, itemStyle: { color: getColor(data.value) } })),
   })),
 }
