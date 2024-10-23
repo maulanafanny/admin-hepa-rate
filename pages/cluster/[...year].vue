@@ -42,18 +42,40 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
     params: { year: currentRouteYear.value },
   },
 )
+const isStale = computed(() => criterias.value?.[0].year.is_stale)
 </script>
 
 <template>
   <v-container fluid>
     <h1 class="mb-3">Data Kriteria Hepatitis-A Pacitan</h1>
 
-    <v-btn
-      color="primary"
-      class="mb-3"
-    >
-      Perbarui Cluster
-    </v-btn>
+    <div class="d-flex align-center mb-3">
+      <v-btn
+        :color="isStale ? 'primary' : ''"
+        :disabled="!isStale"
+        class="mr-3"
+      >
+        Perbarui Cluster
+      </v-btn>
+
+      <div v-if="!isStale">
+        <span class="text-success">Data sudah terbaru</span>
+        <v-icon
+          icon="mdi-check-circle"
+          color="success"
+          class="ml-2"
+        />
+      </div>
+      <div v-else>
+        <span class="text-warning">Data perlu diperbarui</span>
+        <v-icon
+          icon="mdi-alert-box"
+          color="warning"
+          class="ml-2"
+        />
+      </div>
+    </div>
+
     <v-row>
       <v-col>
         <v-card>

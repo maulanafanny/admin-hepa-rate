@@ -38,5 +38,6 @@ export type Criteria = {
   year: {
     id: number
     year: string
+    is_stale: boolean
   }
 }
