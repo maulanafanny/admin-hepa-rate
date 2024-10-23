@@ -115,6 +115,7 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
                   hide-details="auto"
                   step="0.01"
                   min="0"
+                  max="1"
                   name="criteria.clean_water_rate"
                 />
               </template>
@@ -156,6 +157,7 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
                   type="number"
                   step="0.01"
                   min="0"
+                  max="1"
                   hide-details="auto"
                   name="criteria.sanitation_rate"
                 />
@@ -170,6 +172,7 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
                   type="number"
                   step="0.01"
                   min="0"
+                  max="1"
                   hide-details="auto"
                   name="criteria.safe_house_rate"
                 />

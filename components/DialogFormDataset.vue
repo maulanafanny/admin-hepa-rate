@@ -188,12 +188,22 @@ const open = () => {
 
 const createHeaders: DataTableHeaders = [
   { title: 'No', key: 'no', sortable: false },
-  { title: 'Kecamatan', key: 'district.name', sortable: false },
-  { title: 'Air Bersih', key: 'criteria.clean_water_rate', sortable: false },
-  { title: 'Histori Kasus', key: 'criteria.total_case', sortable: false },
-  { title: 'Jumlah Penduduk', key: 'criteria.total_population', sortable: false },
-  { title: 'Sanitasi Lingkungan', key: 'criteria.sanitation_rate', sortable: false },
-  { title: 'Rumah Sehat', key: 'criteria.safe_house_rate', sortable: false },
+  { title: 'Kecamatan', key: 'district.name', sortable: false, minWidth: '149px' },
+  { title: 'Air Bersih', key: 'criteria.clean_water_rate', sortable: false, minWidth: '149px' },
+  { title: 'Histori Kasus', key: 'criteria.total_case', sortable: false, minWidth: '149px' },
+  {
+    title: 'Jumlah Penduduk',
+    key: 'criteria.total_population',
+    sortable: false,
+    minWidth: '149px',
+  },
+  {
+    title: 'Sanitasi Lingkungan',
+    key: 'criteria.sanitation_rate',
+    sortable: false,
+    minWidth: '149px',
+  },
+  { title: 'Rumah Sehat', key: 'criteria.safe_house_rate', sortable: false, minWidth: '149px' },
 ]
 
 const validate = async () => {
@@ -275,6 +285,7 @@ defineExpose({ open })
                   hide-details="auto"
                   step="0.01"
                   min="0"
+                  max="1"
                   name="criteria.clean_water_rate"
                   :rules="[criteriaRequired, notNegative]"
                 />
@@ -313,6 +324,7 @@ defineExpose({ open })
                   type="number"
                   step="0.01"
                   min="0"
+                  max="1"
                   hide-details="auto"
                   name="criteria.sanitation_rate"
                   :rules="[criteriaRequired, notNegative]"
@@ -326,6 +338,7 @@ defineExpose({ open })
                   type="number"
                   step="0.01"
                   min="0"
+                  max="1"
                   hide-details="auto"
                   name="criteria.safe_house_rate"
                   :rules="[criteriaRequired, notNegative]"
