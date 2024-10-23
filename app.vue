@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { THEME_KEY } from 'vue-echarts'
+import Login from './pages/login.vue'
 
 const theme = useTheme()
 provide(
@@ -29,12 +30,15 @@ const { loggedIn } = useUserSession()
 
 <template>
   <v-app>
-    <app-drawer v-if="loggedIn" />
-    <app-bar v-if="loggedIn" />
-    <v-main :style="loggedIn ? '--v-layout-top: 64px; --v-layout-bottom: 32px' : ''">
-      <nuxt-page />
-    </v-main>
-    <app-footer v-if="loggedIn" />
+    <template v-if="loggedIn">
+      <app-drawer />
+      <app-bar />
+      <v-main style="--v-layout-top: 64px; --v-layout-bottom: 32px">
+        <nuxt-page />
+      </v-main>
+      <app-footer />
+    </template>
+    <Login v-else />
   </v-app>
 </template>
 
