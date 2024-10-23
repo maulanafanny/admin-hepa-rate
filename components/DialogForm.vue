@@ -49,7 +49,7 @@ const open = (title: string, modelValue: any, onSubmit: (value: any) => void) =>
   })
 }
 
-defineExpose({ open })
+defineExpose({ open, dialog })
 </script>
 
 <template>
@@ -58,7 +58,7 @@ defineExpose({ open })
     :max-width="maxWidth"
   >
     <v-card>
-      <v-card-item>
+      <v-card-item class="mb-2">
         <v-card-title>
           {{ form.title }}
         </v-card-title>

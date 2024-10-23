@@ -1,26 +1,17 @@
 <script setup lang="ts">
-import DialogForm from '~/components/DialogForm.vue'
+import DialogFormDataset from '~/components/DialogFormDataset.vue'
 import type { DataTableHeaders } from '~/plugins/vuetify'
 import type { Criteria } from '~/types/criteria'
-
-const route = useRoute()
-const currentRouteYear = computed(() => route.path.split('/')[2])
 
 definePageMeta({
   title: 'Kriteria',
   breadcrumb: 'disabled',
 })
 
+const route = useRoute()
+const currentRouteYear = computed(() => route.path.split('/')[2])
+
 const search = ref('')
-const dialogCreate = ref<InstanceType<typeof DialogForm> | null>(null)
-const openDialogCreate = () =>
-  dialogCreate.value?.open('Tambah Data', {}, async (value: any) => {
-    await fetch('/api/criteria', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(value),
-    })
-  })
 
 const oldData = ref<any>({})
 const editId = ref<number | null>(null)
@@ -29,7 +20,7 @@ const headers: DataTableHeaders = [
   { title: 'Kecamatan', key: 'district.name' },
   { title: 'Air Bersih', key: 'criteria.clean_water_rate' },
   { title: 'Histori Kasus', key: 'criteria.total_case' },
-  { title: 'Kepadatan Penduduk', key: 'criteria.total_population' },
+  { title: 'Jumlah Penduduk', key: 'criteria.total_population' },
   { title: 'Sanitasi Lingkungan', key: 'criteria.sanitation_rate' },
   { title: 'Rumah Sehat', key: 'criteria.safe_house_rate' },
   { title: 'Aksi', key: 'actions', align: 'center', sortable: false },
@@ -57,7 +48,6 @@ const handleSubmitEdit = async (item: Criteria) => {
 
     Notify.success('Berhasil mengubah data')
   } catch (error) {
-    console.error(error)
     Notify.error('Terjadi kesalahan saat mengubah data')
   }
 }
@@ -77,9 +67,9 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
     <v-btn
       color="primary"
       class="mb-3"
-      @click="openDialogCreate"
+      @click="$refs.dialogCreate?.open()"
     >
-      Tambah Data
+      Tambah Dataset
     </v-btn>
     <v-row>
       <v-col>
@@ -119,12 +109,12 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
                 <div v-if="editId !== item.district.id">{{ item.criteria.clean_water_rate }}</div>
                 <v-text-field
                   v-else
-                  id="id"
                   v-model="item.criteria.clean_water_rate"
                   density="compact"
                   type="number"
                   hide-details="auto"
                   step="0.01"
+                  min="0"
                   name="criteria.clean_water_rate"
                 />
               </template>
@@ -133,11 +123,11 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
                 <div v-if="editId !== item.district.id">{{ item.criteria.total_case }}</div>
                 <v-text-field
                   v-else
-                  id="id"
                   v-model="item.criteria.total_case"
                   density="compact"
                   type="number"
                   step="1"
+                  min="0"
                   hide-details="auto"
                   name="criteria.total_case"
                 />
@@ -147,11 +137,11 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
                 <div v-if="editId !== item.district.id">{{ item.criteria.total_population }}</div>
                 <v-text-field
                   v-else
-                  id="id"
                   v-model="item.criteria.total_population"
                   density="compact"
                   type="number"
                   step="1"
+                  min="0"
                   hide-details="auto"
                   name="criteria.total_population"
                 />
@@ -161,11 +151,11 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
                 <div v-if="editId !== item.district.id">{{ item.criteria.sanitation_rate }}</div>
                 <v-text-field
                   v-else
-                  id="id"
                   v-model="item.criteria.sanitation_rate"
                   density="compact"
                   type="number"
                   step="0.01"
+                  min="0"
                   hide-details="auto"
                   name="criteria.sanitation_rate"
                 />
@@ -175,11 +165,11 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
                 <div v-if="editId !== item.district.id">{{ item.criteria.safe_house_rate }}</div>
                 <v-text-field
                   v-else
-                  id="id"
                   v-model="item.criteria.safe_house_rate"
                   density="compact"
                   type="number"
                   step="0.01"
+                  min="0"
                   hide-details="auto"
                   name="criteria.safe_house_rate"
                 />
@@ -243,9 +233,7 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
                 </v-defaults-provider>
               </template>
 
-              <template #bottom>
-                <div />
-              </template>
+              <template #bottom />
             </v-data-table>
 
             <template #fallback>
@@ -259,13 +247,12 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
             </template>
           </client-only>
 
-          <DialogForm ref="dialogCreate">
-            <v-text-field
-              v-model="search"
-              solo
-              label="label"
+          <client-only>
+            <DialogFormDataset
+              ref="dialogCreate"
+              max-width="1000px"
             />
-          </DialogForm>
+          </client-only>
         </v-card>
       </v-col>
     </v-row>

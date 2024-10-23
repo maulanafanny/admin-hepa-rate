@@ -1,3 +1,22 @@
+export type CreateDataset = {
+  name: string
+  datasets: CreateCriteria[]
+}
+
+export type CreateCriteria = {
+  criteria: {
+    total_case: number
+    total_population: number
+    sanitation_rate: number
+    clean_water_rate: number
+    safe_house_rate: number
+  }
+  district: {
+    id: number
+    name: string
+  }
+}
+
 export type Criteria = {
   criteria: {
     id: number
