@@ -3,15 +3,14 @@ import ChartBarCumulative from '~/components/Chart/ChartBarCumulative.vue'
 import ChartBarYearly from '~/components/Chart/ChartBarYearly.vue'
 import type { Criteria } from '~/types/criteria'
 
-const route = useRoute()
-const currentRouteYear = computed(() => route.path.split('/')[2])
-
-const currentType = ref('Tahunan')
-
 definePageMeta({
-  title: 'Kriteria',
+  title: 'Grafik',
   breadcrumb: 'disabled',
 })
+
+const route = useRoute()
+const currentRouteYear = computed(() => route.path.split('/')[2])
+const currentType = ref('Tahunan')
 
 const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
   '/api/criteria/findAll',

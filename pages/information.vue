@@ -13,10 +13,23 @@ const { data: articles, pending: loadingArticles } = useLazyFetch<Article[]>('/a
 
 const search = ref('')
 const headers: DataTableHeaders = [
-  { title: 'No', key: 'no' },
+  { title: 'No', key: 'no', sortable: false },
   { title: 'Judul Informasi', key: 'title', minWidth: '200px' },
-  { title: 'Konten Informasi', key: 'content' },
-  { title: 'Aksi', key: 'actions', align: 'center', minWidth: '80px' },
+  {
+    title: 'Konten Informasi',
+    key: 'content',
+    cellProps() {
+      return {
+        class: 'text-truncate',
+        style: {
+          maxWidth: '400px',
+        },
+      }
+    },
+  },
+  { title: 'Waktu Dibuat', key: 'createdAt', align: 'center', minWidth: '150px' },
+  { title: 'Terakhir Diperbarui', key: 'updatedAt', align: 'center', minWidth: '175px' },
+  { title: 'Aksi', key: 'actions', align: 'center', minWidth: '80px', sortable: false },
 ]
 
 const deleteArticle = async (id: number) => {
@@ -95,6 +108,15 @@ const showDialogForm = (item: any, title: string = 'Edit Artikel') => {
       }
     })
 }
+
+const dateFormat = (date: string) => {
+  console.log(date)
+  const [datePart, timePart] = date.split('T')
+  const [year, month, day] = datePart.split('-')
+  const [hour, minute] = timePart.split(':')
+
+  return `${day}-${month}-${year} · ${hour}:${minute}`
+}
 </script>
 
 <template>
@@ -129,69 +151,87 @@ const showDialogForm = (item: any, title: string = 'Edit Artikel') => {
             </teleport>
           </client-only>
 
-          <v-data-table
-            :headers="headers"
-            :items="articles || undefined"
-            :loading="loadingArticles"
-            item-value="name"
-            :search="search"
-          >
-            <template #item.no="{ index }">
-              {{ index + 1 }}
+          <client-only>
+            <v-data-table
+              :headers="headers"
+              :items="articles || undefined"
+              :loading="loadingArticles"
+              item-value="name"
+              :search="search"
+            >
+              <template #item.no="{ index }">
+                {{ index + 1 }}
+              </template>
+
+              <template #item.createdAt="{ item }">
+                {{ dateFormat(item.createdAt) }}
+              </template>
+
+              <template #item.updatedAt="{ item }">
+                {{ dateFormat(item.updatedAt) }}
+              </template>
+
+              <template #item.actions="{ item }">
+                <v-defaults-provider
+                  :defaults="{
+                    VBtn: {
+                      size: 28,
+                      variant: 'text',
+                      class: 'ml-1',
+                      color: 'amber-darken-2',
+                    },
+                    VIcon: {
+                      size: 20,
+                    },
+                  }"
+                >
+                  <v-tooltip location="top">
+                    <template #activator="{ props }">
+                      <v-btn
+                        icon="mdi-pencil-outline"
+                        v-bind="props"
+                        @click.stop="showDialogForm(item)"
+                      />
+                    </template>
+                    <span>Edit</span>
+                  </v-tooltip>
+                </v-defaults-provider>
+
+                <v-defaults-provider
+                  :defaults="{
+                    VBtn: {
+                      size: 28,
+                      variant: 'icon',
+                      class: 'ml-1',
+                      color: 'error',
+                    },
+                    VIcon: {
+                      size: 20,
+                    },
+                  }"
+                >
+                  <v-tooltip location="top">
+                    <template #activator="{ props }">
+                      <v-btn
+                        icon="mdi-delete-outline"
+                        v-bind="props"
+                        @click.stop="showDialogDelete(item.id)"
+                      />
+                    </template>
+                    <span>Delete</span>
+                  </v-tooltip>
+                </v-defaults-provider>
+              </template>
+            </v-data-table>
+
+            <template #fallback>
+              <v-data-table
+                :headers="headers"
+                :items="[]"
+                :loading="true"
+              />
             </template>
-            <template #item.actions="{ item }">
-              <v-defaults-provider
-                :defaults="{
-                  VBtn: {
-                    size: 20,
-                    rounded: 'sm',
-                    variant: 'text',
-                    class: 'ml-1',
-                    color: '',
-                  },
-                  VIcon: {
-                    size: 20,
-                  },
-                }"
-              >
-                <v-tooltip location="top">
-                  <template #activator="{ props }">
-                    <v-btn
-                      icon="mdi-pencil-outline"
-                      v-bind="props"
-                      @click.stop="showDialogForm(item)"
-                    />
-                  </template>
-                  <span>Edit</span>
-                </v-tooltip>
-              </v-defaults-provider>
-              <v-defaults-provider
-                :defaults="{
-                  VBtn: {
-                    size: 20,
-                    rounded: 'sm',
-                    variant: 'text',
-                    class: 'ml-1',
-                    color: '',
-                  },
-                  VIcon: {
-                    size: 20,
-                  },
-                }"
-              >
-                <v-tooltip location="top">
-                  <template #activator="{ props }">
-                    <v-btn
-                      icon="mdi-delete-outline"
-                      v-bind="props"
-                      @click.stop="showDialogDelete(item.id)"
-                    />
-                  </template>
-                  <span>Delete</span>
-                </v-tooltip>
-              </v-defaults-provider>
-            </template>
-          </v-data-table>
+          </client-only>
 
           <DialogConfirm ref="dialogDelete" />
           <DialogForm

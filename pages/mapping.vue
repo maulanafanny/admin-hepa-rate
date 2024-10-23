@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  title: 'Pemetaan Map',
+  title: 'Pemetaan Kerawanan',
   icon: 'mdi-map',
   drawerIndex: 2,
   breadcrumb: 'disabled',

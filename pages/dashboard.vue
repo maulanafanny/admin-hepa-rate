@@ -113,7 +113,7 @@ const stats = ref([
           :loading="loadingDatasets && loadingCriterias"
         >
           <ChartLineCase
-            v-if="totalCasePerYear"
+            v-if="criterias && totalCasePerYear"
             :data="totalCasePerYear"
           />
         </v-card>

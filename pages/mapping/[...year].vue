@@ -4,7 +4,7 @@ import { GoogleMap, Polygon, InfoWindow } from 'vue3-google-map'
 import pacitanGeoJSON from '~/assets/pacitan.json'
 
 definePageMeta({
-  title: 'Pemetaan Kerawanan',
+  title: 'Peta',
   breadcrumb: 'disabled',
 })
 
@@ -15,7 +15,6 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch('/api/criter
   params: { year: currentRouteYear.value },
 })
 
-// Function to get the color based on value
 const getColor = (value: number) => {
   if (value === 3) return '#ff7070'
   if (value === 2) return '#fac858'
@@ -37,8 +36,8 @@ const infoWindowContent = ref<{ name: string; color: string; risk: string } | nu
 const pacitanPolygon = computed(() => {
   return pacitanGeoJSON.features.map((feature) => {
     const multiPolygonCoords = feature.geometry.coordinates
-    const paths = multiPolygonCoords.map(
-      (polygon) => polygon[0].map(([lng, lat]) => ({ lat, lng })), // Convert [lng, lat] -> { lat, lng }
+    const paths = multiPolygonCoords.map((polygon) =>
+      polygon[0].map(([lng, lat]) => ({ lat, lng })),
     )
 
     const clusterId = criterias.value?.find((c) => c.district.id === feature.properties.State_Code)
