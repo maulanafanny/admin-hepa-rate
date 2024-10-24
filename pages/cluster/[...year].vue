@@ -146,8 +146,6 @@ const isStale = computed(() => criterias.value?.[0].year.is_stale)
                 </v-chip>
                 <v-chip v-else> Unknown </v-chip>
               </template>
-
-              <template #bottom />
             </v-data-table>
 
             <template #fallback>
@@ -155,9 +153,7 @@ const isStale = computed(() => criterias.value?.[0].year.is_stale)
                 :headers="headers"
                 :items="[]"
                 :loading="true"
-              >
-                <template #bottom />
-              </v-data-table>
+              />
             </template>
           </client-only>
         </v-card>

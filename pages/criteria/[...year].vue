@@ -97,7 +97,6 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
               :headers="headers"
               :items="criterias || undefined"
               :loading="loadingCriterias"
-              item-value="name"
               :items-per-page="12"
               :search="search"
             >
@@ -236,7 +235,7 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
                 </v-defaults-provider>
               </template>
 
-              <template #bottom />
+              <!-- <template #bottom /> -->
             </v-data-table>
 
             <template #fallback>
@@ -244,9 +243,7 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
                 :headers="headers"
                 :items="[]"
                 :loading="true"
-              >
-                <template #bottom />
-              </v-data-table>
+              />
             </template>
           </client-only>
 
