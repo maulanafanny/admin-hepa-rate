@@ -40,7 +40,7 @@ const cumulativeData = computed(() => {
 
 <template>
   <v-container fluid>
-    <h1 class="mb-3">Grafik Tingkat Kerawanan Tahunan Hepatitis-A</h1>
+    <h1 class="mb-3">Grafik Tingkat Kerawanan Hepatitis-A Pacitan</h1>
 
     <v-select
       v-model="currentType"

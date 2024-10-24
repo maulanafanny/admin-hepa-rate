@@ -41,3 +41,8 @@ export type Criteria = {
     is_stale: boolean
   }
 }
+
+export type ClusterResult = {
+  id: number
+  cluster_id: number
+}

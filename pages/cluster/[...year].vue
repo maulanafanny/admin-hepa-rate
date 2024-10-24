@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { DataTableHeaders } from '~/plugins/vuetify'
-import type { Criteria } from '~/types/criteria'
+import type { ClusterResult, Criteria } from '~/types/criteria'
 
 definePageMeta({
   title: 'Cluster',
@@ -42,23 +42,59 @@ const { data: criterias, pending: loadingCriterias } = useLazyFetch<Criteria[]>(
     params: { year: currentRouteYear.value },
   },
 )
+
+const loadingClusters = ref(false)
+const updateClusters = async () => {
+  try {
+    loadingClusters.value = true
+
+    const result = await useFetch<ClusterResult[]>('/api/criteria/updateCluster', {
+      method: 'POST',
+      body: { year_id: criterias.value?.[0].year.id },
+    })
+
+    result.data.value?.forEach(({ id, cluster_id }) => {
+      const criteria = criterias.value?.find((criteria) => criteria.criteria.id === id)
+
+      if (criteria) {
+        criteria.criteria.cluster_id = cluster_id
+        criteria.year.is_stale = false
+      }
+    })
+
+    Notify.success('Berhasil memperbarui cluster')
+  } catch (error) {
+    Notify.error('Gagal memperbarui cluster')
+  } finally {
+    loadingClusters.value = false
+  }
+}
 const isStale = computed(() => criterias.value?.[0].year.is_stale)
 </script>
 
 <template>
   <v-container fluid>
-    <h1 class="mb-3">Data Kriteria Hepatitis-A Pacitan</h1>
+    <h1 class="mb-3">Hasil Clustering Hepatitis-A Pacitan</h1>
 
     <div class="d-flex align-center mb-3">
       <v-btn
         :color="isStale ? 'primary' : ''"
         :disabled="!isStale"
+        :loading="loadingClusters"
         class="mr-3"
+        @click="updateClusters"
       >
         Perbarui Cluster
       </v-btn>
 
-      <div v-if="!isStale">
+      <div v-if="loadingClusters">
+        <span>Sedang Memproses Data</span>
+        <v-progress-circular
+          indeterminate
+          color="primary"
+        />
+      </div>
+      <div v-else-if="!isStale">
         <span class="text-success">Data sudah terbaru</span>
         <v-icon
           icon="mdi-check-circle"
@@ -101,7 +137,7 @@ const isStale = computed(() => criterias.value?.[0].year.is_stale)
             <v-data-table
               :headers="headers"
               :items="criterias || undefined"
-              :loading="loadingCriterias"
+              :loading="loadingCriterias && loadingClusters"
               item-value="name"
               :items-per-page="12"
               :search="search"
